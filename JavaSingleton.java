@@ -1,4 +1,4 @@
-//The Question for this solution can be found at https://www.hackerrank.com/challenges/java-singleton?h_r=next-challenge&h_v=zen
+//The Question for this solution can be found at https://www.hackerrank.com/challenges/java-singleton
 import java.io.*;
 import java.util.*;
 import java.text.*;
