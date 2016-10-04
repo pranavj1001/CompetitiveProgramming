@@ -1,4 +1,4 @@
-//The Question for this solution can be found at https://www.hackerrank.com/challenges/java-factory?h_r=next-challenge&h_v=zen
+//The Question for this solution can be found at https://www.hackerrank.com/challenges/java-factory
 import java.util.*;
 import java.security.*;
 interface Food {
