@@ -3,41 +3,28 @@
 import java.util.Scanner;
 
 public class ReverseGame {
+    
+    static int n, pos;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
         Scanner sc = new Scanner(System.in);
         int testCases = sc.nextInt();
         while(testCases-->0){
-            int n = sc.nextInt();
-            int[] array = new int[n];
-            int j, k = 0;
+            n = sc.nextInt();
+            pos = sc.nextInt();
             for(int i = 0; i < n; i++){
-                array[i] = i;
+                if(pos < i) break;
+                else reverse(i);
             }
-            j = 0;
-            while(j != n){
-            	reverseArray(array, j, n-1);
-            	j++;
-            }
-            int check = sc.nextInt();
-            for(int x : array){
-                if(x == check){
-                    break;
-                }
-                k++;
-            }
-            System.out.println(k);
+            System.out.println(pos);
         }
         sc.close();
     }
-    static void reverseArray(int arr[], int start, int end) {
-        int temp;
-        if (start >= end)
-            return;
-        temp = arr[start];
-        arr[start] = arr[end];
-        arr[end] = temp;
-        reverseArray(arr, start+1, end-1);
+    private static void reverse(int i){
+        pos = pos - i;
+        pos = n - i - 1 - pos;
+        pos = pos + i;
+        return;
     }
 }
