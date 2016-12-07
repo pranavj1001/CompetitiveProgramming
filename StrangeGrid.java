@@ -8,8 +8,8 @@ public class StrangeGrid {
         /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
         Scanner sc = new Scanner(System.in);
         long row, column, x;
-        row = sc.nextInt();
-        column = sc.nextInt();
+        row = sc.nextLong();
+        column = sc.nextLong();
         if(row % 2 == 0){
             //number is odd
             x = (5*row) - 9;
