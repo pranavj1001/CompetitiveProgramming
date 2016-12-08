@@ -1,5 +1,6 @@
+//The Question for this solution can be found at https://www.hackerrank.com/challenges/even-odd-query
 
-import java.util.*;
+import java.util.Scanner;
 
 public class EvenOddQuery {
     
