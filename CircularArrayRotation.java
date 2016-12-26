@@ -9,7 +9,7 @@ public class CircularArrayRotation {
         int n = in.nextInt();
         int k = in.nextInt();
         int q = in.nextInt();
-        int[] array = new int[n+1];
+        int[] array = new int[n];
         int[] queries = new int[q];
         for(int a_i=0; a_i < n; a_i++){
             array[a_i] = in.nextInt();
