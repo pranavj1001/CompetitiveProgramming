@@ -1,3 +1,5 @@
+// Question: https://www.hackerrank.com/challenges/pairs/
+
 package com.pranavjain.programming;
 
 import java.io.*;
