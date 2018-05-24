@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
-public class Solution {
+public class CompareTriplets {
 
     // Complete the solve function below.
     static int[] solve(int[] a, int[] b) {
