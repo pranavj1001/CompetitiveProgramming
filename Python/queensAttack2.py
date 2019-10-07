@@ -1,5 +1,4 @@
 # The question for this solution can be found at https://www.hackerrank.com/challenges/queens-attack-2/problem
-# I'll be uploading another solution for this problem very soon
 
 #!/bin/python3
 
@@ -9,166 +8,6 @@ import random
 import re
 import sys
 
-def goUp(n, r_q, c_q, obstacles):
-    c = 0
-    if len(obstacles) == 0:
-        c = n - r_q
-    else:
-        obstacleFound = False
-        for i in range(r_q + 1, n + 1):
-            for j in obstacles:
-                if j[0] == i and j[1] == c_q:
-                    obstacleFound = True
-                    break
-            if obstacleFound:
-                break
-            else:
-                c += 1
-
-    return c
-
-def goUpRight(n, r_q, c_q, obstacles):
-    c = 0
-
-    if r_q == n or c_q == n:
-        return c
-    
-    obstacleFound = False
-    iteration = 1
-    for i in range(r_q + 1, n + 1):
-        if c_q + iteration > n or r_q + iteration > n:
-            break
-        for j in obstacles:
-            if (r_q + iteration) == j[0] and (c_q + iteration) == j[1]:
-                obstacleFound = True
-        if obstacleFound:
-            break
-        else:
-            c += 1
-        iteration += 1
-
-    return c
-
-def goRight(n, r_q, c_q, obstacles):
-    c = 0
-    if len(obstacles) == 0:
-        c = n - c_q
-    else:
-        obstacleFound = False
-        for i in range(c_q + 1, n + 1):
-            for j in obstacles:
-                if j[1] == i and j[0] == r_q:
-                    obstacleFound = True
-                    break
-            if obstacleFound:
-                break
-            else:
-                c += 1
-
-    return c
-
-def goRightDown(n, r_q, c_q, obstacles):
-    c = 0
-
-    if r_q == 1 or c_q == n:
-        return c
-    
-    obstacleFound = False
-    iteration = 1
-    for i in range(r_q - 1 , 0, -1):
-        if c_q + iteration > n or r_q - iteration < 1:
-            break
-        for j in obstacles:
-            if (r_q - iteration) == j[0] and (c_q + iteration) == j[1]:
-                obstacleFound = True
-        if obstacleFound:
-            break
-        else:
-            c += 1
-        iteration += 1
-
-    return c
-
-def goDown(n, r_q, c_q, obstacles):
-    c = 0
-    if len(obstacles) == 0 and r_q > 0:
-            c = r_q - 1
-    else:
-        obstacleFound = False
-        for i in range(r_q - 1 , 0, -1):
-            for j in obstacles:
-                if j[0] == i and j[1] == c_q:
-                    obstacleFound = True
-                    break
-            if obstacleFound:
-                break
-            else:
-                c += 1
-
-    return c
-
-def goDownLeft(n, r_q, c_q, obstacles):
-    c = 0
-
-    if r_q == 1 or c_q == 1:
-        return c
-    
-    obstacleFound = False
-    iteration = 1
-    for i in range(r_q - 1 , 0, -1):
-        if c_q - iteration < 1 or r_q - iteration < 1:
-            break
-        for j in obstacles:
-            if (r_q - iteration) == j[0] and (c_q - iteration) == j[1]:
-                obstacleFound = True
-        if obstacleFound:
-            break
-        else:
-            c += 1
-        iteration += 1
-    
-    return c
-
-def goLeft(n, r_q, c_q, obstacles):
-    c = 0
-    if len(obstacles) == 0 and c_q > 0:
-            c = c_q - 1
-    else:
-        obstacleFound = False
-        for i in range(c_q - 1 , 0, -1):
-            for j in obstacles:
-                if j[1] == i and j[0] == r_q:
-                    obstacleFound = True
-                    break
-            if obstacleFound:
-                break
-            else:
-                c += 1
-
-    return c
-
-def goLeftUp(n, r_q, c_q, obstacles):
-    c = 0
-
-    if r_q == n or c_q == 1:
-        return c
-    
-    obstacleFound = False
-    iteration = 1
-    for i in range(r_q + 1, n + 1):
-        if c_q - iteration < 1 or r_q + iteration > n:
-            break
-        for j in obstacles:
-            if (r_q + iteration) == j[0] and (c_q - iteration) == j[1]:
-                obstacleFound = True
-        if obstacleFound:
-            break
-        else:
-            c += 1
-        iteration += 1
-
-    return c
-
 # Complete the queensAttack function below.
 def queensAttack(n, k, r_q, c_q, obstacles):
 
@@ -177,14 +16,80 @@ def queensAttack(n, k, r_q, c_q, obstacles):
     if n == 1:
         return count
 
-    count += goUp(n, r_q, c_q, obstacles)
-    count += goUpRight(n, r_q, c_q, obstacles)
-    count += goRight(n, r_q, c_q, obstacles)
-    count += goRightDown(n, r_q, c_q, obstacles)
-    count += goDown(n, r_q, c_q, obstacles)
-    count += goDownLeft(n, r_q, c_q, obstacles)
-    count += goLeft(n, r_q, c_q, obstacles)
-    count += goLeftUp(n, r_q, c_q, obstacles)
+    # Co-ordinates of obstacle in up, right, down, left direction
+    uR = -1
+    uC = -1
+    rR = -1
+    rC = -1
+    dR = -1
+    dC = -1
+    lR = -1
+    lC = -1
+    # Co-ordinates of obstacle in up-right, right-down, down-left, left-up direction
+    urR = -1
+    urC = -1
+    rdR = -1
+    rdC = -1
+    dlR = -1
+    dlC = -1
+    luR = -1
+    luC = -1
+
+    for obj in obstacles:
+        oR = obj[0]
+        oC = obj[1]
+
+        # check in up direction
+        if (oR > r_q and oC == c_q) and (uR == -1 or oR < uR):
+            uR = oR
+            uC = oC
+        # check in up-right direction
+        elif ((oR - r_q == oC - c_q) and oR > r_q and oC > c_q) and (urR == -1 or oR < urR):
+            urR = oR
+            urC = oC
+        # check in right direction
+        elif (oC > c_q and oR == r_q) and (rC == -1 or oC < rC):
+            rR = oR
+            rC = oC
+        # check in right-down direction
+        elif ((r_q - oR == oC - c_q) and oR < r_q and oC > c_q) and (rdC == -1 or oC < rdC):
+            rdR = oR
+            rdC = oC
+        # check in down direction
+        elif (oR < r_q and oC == c_q) and (dR == -1 or oR > dR):
+            dR = oR
+            dC = oC
+        # check in down-left direction
+        elif ((r_q - oR == c_q - oC) and oR < r_q and oC < c_q) and (dlC == -1 or oC > dlC):
+            dlR = oR
+            dlC = oC
+        # check in left direction
+        elif (oC < c_q and oR == r_q) and (lC == -1 or oC > lC):
+            lR = oR
+            lC = oC
+        # check in left-up direction
+        elif ((oR - r_q == c_q - oC) and oR > r_q and oC < c_q) and (luR == -1 or oR < luR):
+            luR = oR
+            luC = oC
+
+    print(uR, uC)
+    print(urR, urC)
+    print(rR, rC)
+    print(rdR, rdC)
+    print(dR, dC)
+    print(dlR, dlC)
+    print(lR, lC)
+    print(luR, luC)
+
+    # calculate distance from obstacle in each direction
+    count += uR - r_q - 1  if (uR != -1)  else n - r_q
+    count += urR - r_q - 1 if (urR != -1) else min(n - r_q, n - c_q)
+    count += rC - c_q - 1  if (rC != -1)  else n - c_q
+    count += rdC - c_q - 1 if (rdR != -1) else min(r_q - 1, n - c_q)
+    count += r_q - dR - 1  if (dR != -1)  else r_q - 1
+    count += r_q - dlR - 1 if (dlR != -1) else min(r_q - 1, c_q - 1)
+    count += c_q - lC - 1  if (lC != -1)  else c_q - 1
+    count += c_q - luC - 1 if (luC != -1) else min(n - r_q, c_q -1)
 
     return count
 
