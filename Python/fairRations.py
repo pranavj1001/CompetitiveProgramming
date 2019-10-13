@@ -1,3 +1,5 @@
+# The question for this problem can be found at https://www.hackerrank.com/challenges/fair-rations/problem
+
 def fairRations(B):
 	
 	if sum(B) % 2 == 1:
